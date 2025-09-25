@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from "vue-router";
 // Importamos los componentes que usaremos como páginas
 import Home from "../components/Home.vue";
 import ProjectList from "../components/ProjectList.vue";
+import Contact from "../components/Contact.vue";
 import NotFound404 from "../components/NotFound404.vue";
 
 // Definimos las rutas de nuestra aplicación
@@ -20,6 +21,11 @@ const routes = [
 		path: "/projects", // URL "/projects"
 		name: "Projects", // Nombre de la ruta
 		component: ProjectList,
+	},
+	{
+		path: "/contact", // URL "/contact"
+		name: "Contact", // Nombre de la ruta
+		component: Contact,
 	},
 	{
 		// Ruta comodín: captura cualquier URL que no coincida con las anteriores

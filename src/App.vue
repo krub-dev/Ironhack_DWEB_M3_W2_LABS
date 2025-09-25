@@ -17,6 +17,12 @@
 					active-class="active"
 					>Projects</router-link
 				>
+				<router-link
+					to="/contact"
+					class="nav-link"
+					active-class="active"
+					>Contact</router-link
+				>
 			</nav>
 
 			<!-- Aquí se muestran los componentes según la ruta actual -->

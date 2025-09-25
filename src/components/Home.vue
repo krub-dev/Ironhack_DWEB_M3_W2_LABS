@@ -30,10 +30,13 @@
 				<router-link to="/projects" class="cta-btn primary"
 					>View Projects</router-link
 				>
+				<router-link to="/contact" class="cta-btn secondary"
+					>Get In Touch</router-link
+				>
 				<a
 					href="https://krub.dev"
 					target="_blank"
-					class="cta-btn secondary"
+					class="cta-btn tertiary"
 					>My Website</a
 				>
 			</div>
@@ -166,6 +169,20 @@ h2 {
 	color: #f5ca1c;
 	transform: translateY(-2px);
 	box-shadow: 0 8px 20px rgba(30, 30, 30, 0.3);
+}
+
+.cta-btn.tertiary {
+	background: transparent;
+	color: #666;
+	border: 2px solid #ddd;
+}
+
+.cta-btn.tertiary:hover {
+	background: #f8f8f8;
+	color: #1e1e1e;
+	border-color: #bbb;
+	transform: translateY(-2px);
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 @keyframes fadeInDown {

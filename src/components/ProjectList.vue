@@ -78,22 +78,20 @@ function toggleAccordion(index) {
 
 .projects-list {
 	width: 100%;
-	padding: 1rem;
+	max-width: 550px;
+	margin: 0 auto;
 }
 
 .project-accordion {
 	margin-bottom: 1.5em;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
 }
 .accordion-wrapper {
 	width: 100%;
-	max-width: 520px;
 	border-radius: 12px;
 	background: #1e1e1e;
 	box-shadow: 0 2px 12px rgba(30, 30, 30, 0.12);
 	overflow: hidden;
+	margin: 0 auto;
 }
 
 .accordion-header {
