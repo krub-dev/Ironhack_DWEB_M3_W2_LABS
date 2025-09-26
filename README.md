@@ -34,6 +34,8 @@ The showroom includes:
 -   📱 **Responsive Design** - Mobile-first approach with hamburger menu
 -   ⚡ **Real-time Updates** - Live project filtering and management
 -   🔗 **Professional Integration** - LinkedIn button and contact system
+-   🔐 **Teacher Authentication** - CRUD protected by password, only teachers can create/edit/delete projects. Public viewing without password.
+-   🛡️ **Secure API** - All POST/PUT/DELETE operations require the `x-teacher-key` header with the teacher key.
 
 ### **Tech Stack:**
 
@@ -148,6 +150,7 @@ node server.js
 -   ✅ Sequential ID system with production data persistence
 -   ✅ Automated deployment from Git commits
 -   ✅ Full-stack hosting in single Railway service
+-   ✅ Teacher authentication system for secure CRUD operations
 
 ### **Deployment Commands:**
 
@@ -162,7 +165,7 @@ railway up        # Automatically detects changes and deploys
 
 **Latest Deployment Status:**
 
--   **Date:** September 26, 2025
+-   **Date:** September 27, 2025
 -   **API URLs:** Updated from localhost to production Railway URLs
 -   **Status:** ✅ Fully deployed and operational
 
@@ -248,6 +251,7 @@ await fetch("https://krubshowroom-production.up.railway.app/api/projects", {
 -   ✅ **Express Middleware** - Static file serving, JSON parsing, request validation
 -   ✅ **Sequential ID System** - Auto-incremental IDs (1-6...) replacing title-based identification
 -   ✅ **Railway Integration** - Production-ready deployment with environment configuration
+-   🔐 **Teacher Authentication Middleware** - All write operations protected by teacher key
 
 ### **Advanced Features:**
 
@@ -357,5 +361,5 @@ railway up          # Deploy to Railway
 ---
 
 **Ironhack Web Development Bootcamp** - Module 3, Week 2 Labs  
-**Completion Date:** September 26, 2025  
+**Completion Date:** September 27, 2025  
 **Status:** ✅ All labs completed with production deployment
