@@ -23,6 +23,12 @@
 					active-class="active"
 					>Contact</router-link
 				>
+				<router-link
+					to="/api-projects"
+					class="nav-link"
+					active-class="active"
+					>API CRUD</router-link
+				>
 			</nav>
 
 			<!-- Aquí se muestran los componentes según la ruta actual -->

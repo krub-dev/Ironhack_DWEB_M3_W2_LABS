@@ -1,19 +1,45 @@
 <script setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import projects from "../data/projects.json";
 
 const openAccordion = ref(null);
+const showOnlyFeatured = ref(true);
 
 function toggleAccordion(index) {
 	openAccordion.value = openAccordion.value === index ? null : index;
 }
+
+function toggleFeatured() {
+	showOnlyFeatured.value = !showOnlyFeatured.value;
+	openAccordion.value = null; // Close any open accordion when switching
+}
+
+const filteredProjects = computed(() => {
+	return showOnlyFeatured.value
+		? projects.filter((p) => p.featured === true)
+		: projects;
+});
 </script>
 
 <template>
 	<div class="projects-list">
-		<h3 class="projects-title">Featured Projects</h3>
+		<div class="projects-main-title">
+			<h3 class="projects-title">
+				{{ showOnlyFeatured ? "Featured Projects" : "All Projects" }}
+			</h3>
+		</div>
+
+		<div class="projects-controls">
+			<button @click="toggleFeatured" class="toggle-btn">
+				{{
+					showOnlyFeatured
+						? "Show All Projects"
+						: "Show Featured Only"
+				}}
+			</button>
+		</div>
 		<div
-			v-for="(project, idx) in projects"
+			v-for="(project, idx) in filteredProjects"
 			:key="project.title"
 			class="project-accordion"
 		>
@@ -67,13 +93,55 @@ function toggleAccordion(index) {
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap");
 .projects-title {
 	color: #1e1e1e;
+	font-size: 2.5em;
+	margin: 0;
 	font-family: "Montserrat", sans-serif;
-	font-size: 2em;
 	font-weight: 900;
-	margin-bottom: 1.2em;
-	letter-spacing: 0.07em;
-	text-align: center;
-	text-shadow: 1px 2px 8px rgba(30, 30, 30, 0.12);
+	letter-spacing: 0.08em;
+	text-shadow: 2px 4px 12px rgba(30, 30, 30, 0.18);
+	text-transform: uppercase;
+	display: inline-block;
+	animation: fadeInDown 1s cubic-bezier(0.77, 0, 0.18, 1) both;
+}
+
+.projects-main-title {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 4em;
+	margin-bottom: 2.5em;
+}
+
+.projects-controls {
+	display: flex;
+	justify-content: flex-end;
+	margin-bottom: 1.5em;
+	padding-right: 2em;
+}
+
+.toggle-btn {
+	background: #1e1e1e;
+	color: #f5ca1c;
+	border: 1px solid #1e1e1e;
+	padding: 0.5rem 1rem;
+	border-radius: 6px;
+	font-family: "Montserrat", sans-serif;
+	font-weight: 600;
+	font-size: 0.75em;
+	text-transform: uppercase;
+	letter-spacing: 0.03em;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	opacity: 0.8;
+}
+
+.toggle-btn:hover {
+	background: transparent;
+	color: #1e1e1e;
+	border-color: #1e1e1e;
+	opacity: 1;
+	transform: translateY(-1px);
+	box-shadow: 0 2px 8px rgba(30, 30, 30, 0.2);
 }
 
 .projects-list {
@@ -88,54 +156,63 @@ function toggleAccordion(index) {
 .accordion-wrapper {
 	width: 100%;
 	border-radius: 12px;
-	background: #1e1e1e;
-	box-shadow: 0 2px 12px rgba(30, 30, 30, 0.12);
+	background: rgba(30, 30, 30, 0.9);
+	border: 1px solid #333;
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 	overflow: hidden;
 	margin: 0 auto;
+	transition: all 0.3s ease;
+}
+
+.accordion-wrapper:hover {
+	border-color: #f5ca1c;
+	transform: translateY(-3px);
+	box-shadow: 0 6px 20px rgba(245, 202, 28, 0.15);
 }
 
 .accordion-header {
 	width: 100%;
-	background: goldenrod;
-	color: #1e1e1e;
+	background: #2d2d2d;
+	color: #f5ca1c;
 	font-family: "Montserrat", sans-serif;
-	font-weight: 900;
-	font-size: 1.1em;
-	padding: 1em 2em;
+	font-weight: 700;
+	font-size: 1.2em;
+	padding: 1.5em 2em;
 	border: none;
 	outline: none;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	cursor: pointer;
-	transition: background 0.2s;
+	transition: all 0.3s ease;
+	position: relative;
 }
 
 .accordion-header:hover {
-	background: #ffd738;
+	background: #333;
+	color: #fff;
 }
 
 .project-title {
 	letter-spacing: 0.05em;
+	font-weight: 700;
 }
 
 .arrow {
-	transition: transform 0.3s;
+	transition: transform 0.3s ease;
+	font-size: 1.2em;
+	color: #f5ca1c;
 }
+
 .arrow.open {
 	transform: rotate(180deg);
 }
 
 .accordion-body {
-	background: #232323;
-	color: #dbdbdb;
-	padding: 1.2em 2em;
-	display: flex;
-	align-items: flex-start;
-	width: 100%;
-	border-bottom-left-radius: 12px;
-	border-bottom-right-radius: 12px;
-	box-sizing: border-box;
+	background: #1e1e1e;
+	color: #e0e0e0;
+	padding: 2em;
+	border-top: 1px solid #333;
 }
 
 .project-img-row {
@@ -194,8 +271,10 @@ function toggleAccordion(index) {
 
 .project-info p {
 	margin: 0 0 0.5em 0;
-	color: #dbdbdb;
+	color: #ccc;
 	text-align: left;
+	line-height: 1.6;
+	font-size: 0.95rem;
 }
 
 .tech-list {
@@ -209,19 +288,71 @@ function toggleAccordion(index) {
 	background: #f5ca1c;
 	color: #1e1e1e;
 	border-radius: 6px;
-	padding: 0.2em 0.7em;
-	margin-right: 0.5em;
-	font-size: 0.9em;
-	font-weight: 700;
-	box-shadow: 0 1px 4px rgba(30, 30, 30, 0.1);
+	padding: 0.4em 0.8em;
+	margin-right: 0.6em;
+	font-size: 0.85em;
+	font-weight: 600;
+	box-shadow: 0 2px 4px rgba(245, 202, 28, 0.2);
+	transition: all 0.2s ease;
+}
+
+.tech-chip:hover {
+	transform: translateY(-1px);
+	box-shadow: 0 3px 6px rgba(245, 202, 28, 0.3);
 }
 
 .rating {
 	font-size: 1em;
 	color: #f5ca1c;
-	font-weight: bold;
-	margin-top: 1.2em;
+	font-weight: 600;
+	margin-top: 1.5em;
 	display: flex;
 	align-items: center;
+	gap: 0.5rem;
+}
+
+.repo-link {
+	display: inline-block;
+	color: #f5ca1c;
+	text-decoration: none;
+	font-weight: 600;
+	padding: 0.6rem 1.2rem;
+	background: rgba(245, 202, 28, 0.1);
+	border: 1px solid #f5ca1c;
+	border-radius: 6px;
+	transition: all 0.3s ease;
+	margin-top: 1rem;
+}
+
+.repo-link:hover {
+	background: #f5ca1c;
+	color: #1e1e1e;
+	transform: translateY(-2px);
+	box-shadow: 0 4px 8px rgba(245, 202, 28, 0.3);
+}
+
+/* Toggle Button Responsive Styles */
+@media (max-width: 768px) {
+	.projects-header {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 1rem;
+	}
+
+	.toggle-button {
+		width: 100%;
+		justify-content: center;
+	}
+}
+
+@media (max-width: 480px) {
+	.toggle-button {
+		padding: 0.8rem 1rem;
+		font-size: 0.9rem;
+	}
+
+	.projects-header h2 {
+		font-size: 1.5rem;
+	}
 }
 </style>

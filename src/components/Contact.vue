@@ -225,15 +225,20 @@ export default {
 }
 
 .contact-form {
-	background: rgba(245, 202, 28, 0.05);
-	padding-top: 2rem;
+	background: rgba(30, 30, 30, 0.9);
+	border: 1px solid #333;
+	padding: 3rem 2.5rem;
 	border-radius: 12px;
-	border: 2px solid rgba(245, 202, 28, 0.2);
-	box-shadow: 0 8px 32px rgba(245, 202, 28, 0.1);
-	backdrop-filter: blur(10px);
+	box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+	transition: all 0.3s ease;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+}
+
+.contact-form:hover {
+	border-color: #f5ca1c;
+	box-shadow: 0 8px 25px rgba(245, 202, 28, 0.15);
 }
 
 .form-group {
@@ -248,8 +253,8 @@ export default {
 .form-group label {
 	display: block;
 	font-weight: 600;
-	color: #1e1e1e;
-	margin-bottom: 0.3rem;
+	color: #f5ca1c;
+	margin-bottom: 0.5rem;
 	font-size: 0.95rem;
 	text-align: left;
 	width: 100%;
@@ -259,13 +264,14 @@ export default {
 .form-group select,
 .form-group textarea {
 	width: 100%;
-	padding: 1rem;
-	border: 2px solid rgba(245, 202, 28, 0.3);
-	border-radius: 8px;
+	padding: 0.8rem;
+	border: 1px solid #555;
+	border-radius: 6px;
 	font-size: 1rem;
-	background: white;
+	background: #2d2d2d;
+	color: #fff;
 	transition: all 0.3s ease;
-	font-family: inherit;
+	font-family: "Courier New", monospace;
 	box-sizing: border-box;
 	-webkit-appearance: none;
 	-moz-appearance: none;
@@ -277,8 +283,12 @@ export default {
 .form-group textarea:focus {
 	outline: none;
 	border-color: #f5ca1c;
-	box-shadow: 0 0 0 3px rgba(245, 202, 28, 0.2);
-	transform: translateY(-2px);
+	box-shadow: 0 0 0 2px rgba(245, 202, 28, 0.2);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+	color: #888;
 }
 
 .form-group textarea {
@@ -288,7 +298,7 @@ export default {
 
 .form-group select {
 	cursor: pointer;
-	background-image: url("data:image/svg+xml;charset=UTF-8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6,9 12,15 18,9'></polyline></svg>");
+	background-image: url("data:image/svg+xml;charset=UTF-8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f5ca1c' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6,9 12,15 18,9'></polyline></svg>");
 	background-repeat: no-repeat;
 	background-position: right 1rem center;
 	background-size: 16px;
@@ -322,35 +332,30 @@ export default {
 }
 
 .submit-btn {
-	background: linear-gradient(45deg, #f5ca1c, #f5d43c);
+	background: #f5ca1c;
 	color: #1e1e1e;
-	box-shadow: 0 6px 12px rgba(245, 202, 28, 0.8),
-		0 3px 6px rgba(68, 68, 68, 0.6);
+	border: none;
+	box-shadow: 0 4px 12px rgba(245, 202, 28, 0.3);
 	font-weight: 700;
-	transform: translateY(-1px);
-	border: 1px solid rgba(245, 202, 28, 0.8);
+	transition: all 0.3s ease;
 }
 
 .submit-btn:hover {
-	transform: translateY(-3px);
-	box-shadow: 0 10px 20px rgba(245, 202, 28, 0.9),
-		0 5px 10px rgba(245, 202, 28, 0.7);
-	background: linear-gradient(45deg, #f5d43c, #f5ca1c);
-	scale: 1.02;
+	background: #ffd43c;
+	transform: translateY(-2px);
+	box-shadow: 0 6px 16px rgba(245, 202, 28, 0.4);
 }
 
 .clear-btn {
-	background: #1e1e1e;
-	color: #e0e0e0;
-	border: 2px solid #1e1e1e;
+	background: transparent;
+	color: #f5ca1c;
+	border: 1px solid #f5ca1c;
 }
 
 .clear-btn:hover {
-	background: #ffffff;
-	border-color: #ffffff;
+	background: #f5ca1c;
 	color: #1e1e1e;
-	transform: translateY(-1px);
-	box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+	transform: translateY(-2px);
 }
 
 .success-message {

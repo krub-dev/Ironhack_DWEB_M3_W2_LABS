@@ -4,6 +4,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import Home from "../components/Home.vue";
 import ProjectList from "../components/ProjectList.vue";
 import Contact from "../components/Contact.vue";
+import ApiProjects from "../components/ApiProjects.vue";
 import NotFound404 from "../components/NotFound404.vue";
 
 // Definimos las rutas de nuestra aplicación
@@ -26,6 +27,11 @@ const routes = [
 		path: "/contact", // URL "/contact"
 		name: "Contact", // Nombre de la ruta
 		component: Contact,
+	},
+	{
+		path: "/api-projects", // URL "/api-projects" - CRUD con API Express
+		name: "ApiProjects", // Nombre de la ruta
+		component: ApiProjects,
 	},
 	{
 		// Ruta comodín: captura cualquier URL que no coincida con las anteriores
