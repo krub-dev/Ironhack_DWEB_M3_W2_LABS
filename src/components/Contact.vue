@@ -89,6 +89,10 @@
 			</div>
 		</form>
 
+		<div class="linkedin-section">
+			<LinkedInButton />
+		</div>
+
 		<div v-if="showSuccess" class="success-message">
 			<h3>🎉 Message Sent Successfully!</h3>
 			<p>Thanks for reaching out! I'll get back to you soon.</p>
@@ -97,8 +101,13 @@
 </template>
 
 <script>
+import LinkedInButton from "./LinkedInButton.vue";
+
 export default {
 	name: "Contact",
+	components: {
+		LinkedInButton,
+	},
 	data() {
 		return {
 			showSuccess: false,
@@ -217,7 +226,7 @@ export default {
 
 .contact-form {
 	background: rgba(245, 202, 28, 0.05);
-	padding: 2rem;
+	padding-top: 2rem;
 	border-radius: 12px;
 	border: 2px solid rgba(245, 202, 28, 0.2);
 	box-shadow: 0 8px 32px rgba(245, 202, 28, 0.1);
@@ -404,5 +413,19 @@ export default {
 	.clear-btn {
 		width: 100%;
 	}
+
+	.linkedin-section {
+		text-align: center;
+	}
+}
+
+/* LinkedIn Section */
+.linkedin-section {
+	text-align: center;
+	padding: 0.5rem;
+	margin-top: 1rem;
+	max-width: 200px;
+	margin-left: auto;
+	margin-right: auto;
 }
 </style>

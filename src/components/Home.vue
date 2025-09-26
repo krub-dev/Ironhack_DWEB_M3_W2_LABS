@@ -27,27 +27,31 @@
 			</div>
 
 			<div class="cta-buttons">
-				<router-link to="/projects" class="cta-btn primary"
-					>View Projects</router-link
-				>
-				<router-link to="/contact" class="cta-btn secondary"
-					>Get In Touch</router-link
-				>
-				<a
-					href="https://krub.dev"
-					target="_blank"
-					class="cta-btn tertiary"
-					>My Website</a
-				>
+				<div class="main-buttons">
+					<router-link to="/projects" class="cta-btn primary"
+						>View Projects</router-link
+					>
+					<router-link to="/contact" class="cta-btn secondary"
+						>Get In Touch</router-link
+					>
+					<a
+						href="https://krub.dev"
+						target="_blank"
+						class="cta-btn tertiary"
+						>My Website</a
+					>
+				</div>
+				<div class="linkedin-row">
+					<LinkedInButton />
+				</div>
 			</div>
 		</div>
 	</div>
 </template>
 
 <script setup>
-// No necesitamos lógica adicional por ahora
+import LinkedInButton from "./LinkedInButton.vue";
 </script>
-
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap");
 
@@ -128,10 +132,22 @@ h2 {
 
 .cta-buttons {
 	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1.5rem;
+	margin-top: 2rem;
+}
+
+.main-buttons {
+	display: flex;
 	gap: 1rem;
 	justify-content: center;
 	flex-wrap: wrap;
-	margin-top: 2rem;
+}
+
+.linkedin-row {
+	display: flex;
+	justify-content: center;
 }
 
 .cta-btn {
@@ -172,17 +188,16 @@ h2 {
 }
 
 .cta-btn.tertiary {
-	background: transparent;
-	color: #666;
-	border: 2px solid #ddd;
+	background: #1e1e1e;
+	color: #f5ca1c;
+	border: 2px solid #1e1e1e;
 }
 
 .cta-btn.tertiary:hover {
-	background: #f8f8f8;
+	background: transparent;
 	color: #1e1e1e;
-	border-color: #bbb;
 	transform: translateY(-2px);
-	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+	box-shadow: 0 8px 20px rgba(30, 30, 30, 0.3);
 }
 
 @keyframes fadeInDown {
