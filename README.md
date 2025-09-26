@@ -1,6 +1,11 @@
 # 🚀 Ironhack DWEB - Module 3 Week 2 Labs
 
-Professional full-stack web application developed during **Ironhack Web Development Bootcamp**. This project showcases a complete Vue.js frontend with Express.js backend, featuring advanced CRUD operations, featured projects system, and elegant dark UI design.
+| Professional full-stack web application developed during \*\*Iron | Method              | Endpoint           | Description  | Body                     | Notes                                                                                                                                                                                             |
+| ----------------------------------------------------------------- | ------------------- | ------------------ | ------------ | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `GET`                                                             | `/api/projects`     | Get all projects   | -            | Includes featured status |
+| `POST`                                                            | `/api/projects`     | Create new project | Project JSON | Uses title as identifier |
+| `PUT`                                                             | `/api/projects/:id` | Update project     | Project JSON | ID = project title       |
+| `DELETE`                                                          | `/api/projects/:id` | Delete project     | -            | ID = project title       | eb Development Bootcamp\*\*. This project showcases a complete Vue.js frontend with Express.js backend, featuring advanced CRUD operations, featured projects system, and elegant dark UI design. |
 
 ## 📋 **Project Overview**
 
@@ -115,8 +120,7 @@ node server.js
 
 ```javascript
 {
-  "id": "unique-identifier",
-  "title": "Project Title",
+  "title": "Project Title",                    // Used as unique identifier
   "description": "Detailed description",
   "image": "https://example.com/image.jpg",
   "technologies": ["Vue.js", "Express.js"],
@@ -170,7 +174,7 @@ await fetch("http://localhost:3001/api/projects", {
 -   ✅ **Error Handling** - Comprehensive error responses and logging
 -   ✅ **Featured Projects** - Backend support for featured/regular categorization
 -   ✅ **Express Middleware** - JSON parsing, logging, request validation
--   ✅ **Unique ID Generation** - Automatic ID assignment for new projects
+-   ✅ **Unique ID Generation** - Uses project title as unique identifier
 
 ### **Advanced Features:**
 
