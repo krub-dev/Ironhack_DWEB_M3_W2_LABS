@@ -11,16 +11,44 @@
 						<span class="code-keyword">const </span>
 						<span class="code-variable">apiUrl </span>
 						<span class="code-operator">= </span>
-						<span class="code-string"
-							>"https://krubshowroom-production.up.railway.app/api/projects"</span
-						>
+						<span class="code-string">"{{ apiUrl }}"</span>
 						<span class="code-bracket">;</span>
 					</div>
 				</div>
 			</header>
 
+			<!-- Teacher Authentication Panel -->
+			<div v-if="!teacherAuthenticated" class="teacher-auth-panel">
+				<h3>Teacher Access Required</h3>
+				<p>
+					To test CRUD operations (Create, Update, Delete), please
+					enter the teacher access code:
+				</p>
+				<div class="auth-input-group">
+					<input
+						type="password"
+						v-model="teacherPassword"
+						placeholder="Enter teacher access code"
+						@keyup.enter="authenticateTeacher"
+						class="teacher-password-input"
+					/>
+					<button
+						@click="authenticateTeacher"
+						class="auth-btn"
+						:disabled="!teacherPassword"
+					>
+						🔓 Enable CRUD
+					</button>
+				</div>
+				<div class="read-only-notice">
+					<strong>Note:</strong> You can browse and view all projects
+					without authentication. Authentication is only required for
+					editing operations.
+				</div>
+			</div>
+
 			<!-- Control Panel -->
-			<div class="control-panel">
+			<div v-if="teacherAuthenticated" class="control-panel">
 				<div class="project-selector">
 					<select
 						id="projectSelect"
@@ -63,7 +91,10 @@
 			</div>
 
 			<!-- Project Details (when selected) -->
-			<div v-if="selectedProject" class="project-details">
+			<div
+				v-if="selectedProject && teacherAuthenticated"
+				class="project-details"
+			>
 				<h3>{{ selectedProject.title }}</h3>
 				<div class="project-image" v-if="selectedProject.image">
 					<img
@@ -106,7 +137,7 @@
 
 			<!-- Formulario para crear/editar (hidden by default) -->
 			<form
-				v-if="showForm"
+				v-if="showForm && teacherAuthenticated"
 				class="project-form"
 				@submit.prevent="saveProject"
 			>
@@ -249,20 +280,61 @@ export default {
 			loading: false,
 			message: "",
 			messageType: "success", // success | error
-			apiUrl: "https://krubshowroom-production.up.railway.app/api/projects",
+			apiUrl: this.getApiUrl(),
 			// New variables for dropdown interface
 			selectedProjectId: "CREATE_NEW", // Default to Create New Project
 			selectedProject: null,
 			showForm: true, // Show form by default
+			// Teacher authentication
+			teacherAuthenticated: false,
+			teacherPassword: "",
 		};
 	},
 
 	async mounted() {
-		// Load projects when component mounts (like @PostConstruct in Spring)
-		await this.loadProjects();
+		// Projects will only load after teacher authentication
+		// No automatic loading to protect data access
 	},
 
 	methods: {
+		// Get API URL based on environment
+		getApiUrl() {
+			// Check if we're in development or production
+			const isDevelopment =
+				window.location.hostname === "localhost" ||
+				window.location.hostname === "127.0.0.1";
+			const apiUrl = isDevelopment
+				? "http://localhost:3001/api/projects"
+				: "https://krubshowroom-production.up.railway.app/api/projects";
+			return apiUrl;
+		},
+
+		// Teacher authentication
+		async authenticateTeacher() {
+			if (!this.teacherPassword) {
+				this.showMessage("Please enter teacher access code", "error");
+				return;
+			}
+
+			// Simple password validation
+			const CORRECT_PASSWORD = "ironhack2025";
+			if (this.teacherPassword === CORRECT_PASSWORD) {
+				this.teacherAuthenticated = true;
+				this.showMessage(
+					"Teacher access granted! You can now use all CRUD operations.",
+					"success"
+				);
+				// Load projects after successful authentication
+				await this.loadProjects(false);
+			} else {
+				this.showMessage(
+					"Invalid teacher access code. Please try again.",
+					"error"
+				);
+				this.teacherPassword = ""; // Clear wrong password
+			}
+		},
+
 		// READ - Fetch all projects from API
 		async loadProjects(showMessage = true) {
 			try {
@@ -310,6 +382,7 @@ export default {
 						method: "PUT",
 						headers: {
 							"Content-Type": "application/json",
+							"x-teacher-key": this.teacherPassword,
 						},
 						body: JSON.stringify(projectData),
 					});
@@ -319,6 +392,7 @@ export default {
 						method: "POST",
 						headers: {
 							"Content-Type": "application/json",
+							"x-teacher-key": this.teacherPassword,
 						},
 						body: JSON.stringify(projectData),
 					});
@@ -365,6 +439,9 @@ export default {
 
 				const response = await fetch(`${this.apiUrl}/${id}`, {
 					method: "DELETE",
+					headers: {
+						"x-teacher-key": this.teacherPassword,
+					},
 				});
 
 				if (!response.ok) {
@@ -1119,5 +1196,83 @@ export default {
 	color: #666;
 	font-style: italic;
 	padding: 2rem;
+}
+
+/* Teacher Authentication Styles */
+.teacher-auth-panel {
+	background: rgba(245, 202, 28, 0.1);
+	border: 2px solid #f5ca1c;
+	border-radius: 8px;
+	padding: 1.5rem;
+	margin-bottom: 2rem;
+	text-align: center;
+}
+
+.teacher-auth-panel h3 {
+	color: #f5ca1c;
+	margin-bottom: 1rem;
+}
+
+.teacher-auth-panel p {
+	color: #ccc;
+	margin-bottom: 1.5rem;
+}
+
+.auth-input-group {
+	display: flex;
+	gap: 1rem;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 1rem;
+}
+
+.teacher-password-input {
+	background: #2d2d2d;
+	border: 2px solid #f5ca1c;
+	border-radius: 6px;
+	padding: 0.75rem;
+	color: #f5ca1c;
+	font-family: inherit;
+	min-width: 250px;
+}
+
+.teacher-password-input:focus {
+	outline: none;
+	border-color: #f5ca1c;
+	box-shadow: 0 0 0 2px rgba(245, 202, 28, 0.2);
+}
+
+.auth-btn {
+	background: #f5ca1c;
+	color: #1e1e1e;
+	border: none;
+	border-radius: 6px;
+	padding: 0.75rem 1.5rem;
+	font-weight: 600;
+	cursor: pointer;
+	transition: all 0.3s ease;
+}
+
+.auth-btn:disabled {
+	background: #666;
+	cursor: not-allowed;
+}
+
+.auth-btn:not(:disabled):hover {
+	background: #e6b71a;
+	transform: translateY(-2px);
+}
+
+.read-only-notice {
+	background: rgba(245, 202, 28, 0.05);
+	border: 1px solid rgba(245, 202, 28, 0.3);
+	border-radius: 6px;
+	padding: 1rem;
+	color: #f5ca1c;
+	font-size: 0.9rem;
+}
+
+.control-panel.read-only {
+	opacity: 0.7;
 }
 </style>

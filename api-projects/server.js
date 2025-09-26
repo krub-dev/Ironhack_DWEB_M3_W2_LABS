@@ -10,13 +10,35 @@ const PORT = process.env.PORT || 3001; // Railway usa variable de entorno PORT
 const corsOptions = {
 	origin:
 		process.env.NODE_ENV === "production"
-			? process.env.FRONTEND_URL || "*" // Railway will set this
-			: "http://localhost:5173", // Local development
+			? process.env.FRONTEND_URL || "*"
+			: "*", // Allow all origins in development
+	credentials: true,
 };
 
 // Middlewares (como @Configuration en Spring Boot)
 app.use(cors(corsOptions)); // Configuración de CORS para desarrollo y producción
 app.use(express.json()); // Parsea JSON requests (como @RequestBody)
+
+// Teacher authentication middleware
+const TEACHER_PASSWORD = process.env.TEACHER_PASSWORD || "ironhack2025";
+
+app.use("/api/projects", (req, res, next) => {
+	// Allow GET requests (read-only) without authentication
+	if (req.method === "GET") {
+		return next();
+	}
+
+	// For POST, PUT, DELETE - require teacher password
+	const teacherKey = req.headers["x-teacher-key"];
+	if (teacherKey !== TEACHER_PASSWORD) {
+		return res.status(401).json({
+			error: "CRUD operations require teacher authentication",
+			message: "Please provide teacher access code in frontend",
+		});
+	}
+
+	next();
+});
 
 // Serve static files from Vue build in production
 if (process.env.NODE_ENV === "production") {
