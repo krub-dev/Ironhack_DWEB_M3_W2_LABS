@@ -1,21 +1,15 @@
 # 🚀 Ironhack DWEB - Module 3 Week 2 Labs
 
-| Professional full-stack web application developed during \*\*Iron | Method              | Endpoint           | Description  | Body                     | Notes                                                                                                                                                                                             |
-| ----------------------------------------------------------------- | ------------------- | ------------------ | ------------ | ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `GET`                                                             | `/api/projects`     | Get all projects   | -            | Includes featured status |
-| `POST`                                                            | `/api/projects`     | Create new project | Project JSON | Uses title as identifier |
-| `PUT`                                                             | `/api/projects/:id` | Update project     | Project JSON | ID = project title       |
-| `DELETE`                                                          | `/api/projects/:id` | Delete project     | -            | ID = project title       | eb Development Bootcamp\*\*. This project showcases a complete Vue.js frontend with Express.js backend, featuring advanced CRUD operations, featured projects system, and elegant dark UI design. |
+Professional full-stack web application developed during **Ironhack Web Development Bootcamp**. This project showcases a complete Vue.js frontend with Express.js backend, featuring advanced CRUD operations, featured projects system, and elegant dark UI design.
 
 ## 📋 **Project Overview**
 
 ### **Labs Completed:**
 
--   **Lab 1:** Vue.js SPA with routing (Home, Projects, Contact, 404)
--   **Lab 2:** Professional contact form with dark theme styling
--   **Lab 3:** Complete CRUD API integration with Express backend
--   **Lab 4:** Featured projects system with dynamic filtering
--   **Bonus:** Advanced API Projects Manager with admin interface
+-   **M3_W2_D1_LAB1:** Vue.js component with personal info and featured projects list
+-   **M3_W2_D2_LAB1:** SPA routing (Home, Projects, 404) with CSS styling
+-   **M3_W2_D2_LAB2:** Contact form component with professional styling
+-   **M3_W2_D2_LAB3:** Complete CRUD API integration with Express backend
 
 ### **Key Features:**
 
@@ -109,18 +103,19 @@ node server.js
 
 ### **Base URL:** `http://localhost:3001`
 
-| Method   | Endpoint            | Description        | Body         | Notes                    |
-| -------- | ------------------- | ------------------ | ------------ | ------------------------ |
-| `GET`    | `/api/projects`     | Get all projects   | -            | Includes featured status |
-| `POST`   | `/api/projects`     | Create new project | Project JSON | Auto-assigns unique ID   |
-| `PUT`    | `/api/projects/:id` | Update project     | Project JSON | Supports featured toggle |
-| `DELETE` | `/api/projects/:id` | Delete project     | -            | Permanent deletion       |
+| Method   | Endpoint            | Description        | Body         | Notes                      |
+| -------- | ------------------- | ------------------ | ------------ | -------------------------- |
+| `GET`    | `/api/projects`     | Get all projects   | -            | Includes featured status   |
+| `POST`   | `/api/projects`     | Create new project | Project JSON | Auto-assigns sequential ID |
+| `PUT`    | `/api/projects/:id` | Update project     | Project JSON | ID = numeric project ID    |
+| `DELETE` | `/api/projects/:id` | Delete project     | -            | ID = numeric project ID    |
 
 ### **Enhanced Project Schema:**
 
 ```javascript
 {
-  "title": "Project Title",                    // Used as unique identifier
+  "id": 1,                                     // Auto-incremental unique identifier
+  "title": "Project Title",
   "description": "Detailed description",
   "image": "https://example.com/image.jpg",
   "technologies": ["Vue.js", "Express.js"],
@@ -174,7 +169,7 @@ await fetch("http://localhost:3001/api/projects", {
 -   ✅ **Error Handling** - Comprehensive error responses and logging
 -   ✅ **Featured Projects** - Backend support for featured/regular categorization
 -   ✅ **Express Middleware** - JSON parsing, logging, request validation
--   ✅ **Unique ID Generation** - Uses project title as unique identifier
+-   ✅ **Unique ID Generation** - Sequential auto-incremental IDs for new projects
 
 ### **Advanced Features:**
 
@@ -229,31 +224,42 @@ node server.js       # Start API server
 
 ## 🎯 **Learning Objectives Achieved**
 
--   ✅ **Vue.js SPA Development** - Composition API, reactive data, component lifecycle
--   ✅ **Advanced Vue Router** - Navigation guards, route parameters, nested routes
--   ✅ **RESTful API Design** - HTTP methods, status codes, proper JSON responses
--   ✅ **Full-stack Integration** - Seamless frontend-backend communication
--   ✅ **Modern JavaScript** - ES6+, async/await, modules, destructuring
--   ✅ **File System Operations** - Node.js fs module with error handling
--   ✅ **Professional UI/UX** - Dark themes, animations, responsive design
--   ✅ **State Management** - Vue reactivity, computed properties, watchers
--   ✅ **Form Handling** - Validation, custom styling, user feedback
--   ✅ **CRUD Operations** - Create, Read, Update, Delete with real-time updates
--   ✅ **Featured Content System** - Dynamic filtering and categorization
--   ✅ **Admin Interface Design** - Professional management dashboard
+### **M3_W2_D1_LAB1 - Personal Portfolio Component:**
+
+-   ✅ **Component Creation** - Personal info with h1 (name), h2 (job title)
+-   ✅ **Project Highlights** - JSON-based featured projects list
+-   ✅ **Professional Design** - Header/banner image integration
+-   ✅ **External Links** - Portfolio link with branding
+
+### **M3_W2_D2_LAB1 - SPA Routing:**
+
+-   ✅ **Vue Router** - Home component at `/home` and `/` routes
+-   ✅ **Projects Display** - Component for current/featured projects
+-   ✅ **404 Error Handling** - Custom NotFound component for invalid routes
+-   ✅ **Professional Styling** - CSS across all components
+
+### **M3_W2_D2_LAB2 - Contact Form:**
+
+-   ✅ **Contact Component** - Professional collaboration inquiry form
+-   ✅ **Form Validation** - Input validation and user feedback
+-   ✅ **Dark Theme Design** - Elegant styling matching portfolio theme
+
+### **M3_W2_D2_LAB3 - CRUD Integration:**
+
+-   ✅ **Complete CRUD** - Create, Read, Update, Delete operations
+-   ✅ **API Integration** - Express.js backend with JSON file storage
+-   ✅ **Security Features** - Confirm dialogs for delete operations
+-   ✅ **Real-time Updates** - Immediate UI feedback for all operations
+-   ✅ **Featured Projects** - Enhanced system beyond basic requirements
 
 ---
 
 ## 👨‍💻 **Developer**
-
-**Kiko Rubio Illán**
 
 -   GitHub: [@krub-dev](https://github.com/krub-dev)
 -   LinkedIn: [Kiko Rubio Illán](https://linkedin.com/in/krub)
 -   Portfolio: [krub.dev](https://krub.dev)
 
 ---
-
-## 📄 **License**
 
 This project was developed as part of **Ironhack Web Development Bootcamp** coursework.

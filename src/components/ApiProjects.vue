@@ -33,8 +33,8 @@
 						<option disabled>---</option>
 						<option
 							v-for="project in projects"
-							:key="project.id || project.title"
-							:value="project.id || project.title"
+							:key="project.id"
+							:value="project.id"
 						>
 							📁 {{ project.title }}
 						</option>
@@ -393,7 +393,7 @@ export default {
 
 		// Edit project - populate form with existing data
 		editProject(project) {
-			this.editingId = project.id || project.title;
+			this.editingId = project.id;
 			this.formData = {
 				title: project.title,
 				description: project.description,
@@ -467,7 +467,7 @@ export default {
 
 		selectProject() {
 			this.selectedProject = this.projects.find(
-				(p) => (p.id || p.title) === this.selectedProjectId
+				(p) => p.id == this.selectedProjectId
 			);
 		},
 

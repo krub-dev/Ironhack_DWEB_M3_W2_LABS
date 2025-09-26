@@ -51,9 +51,13 @@ app.get("/api/projects", (req, res) => {
 // POST /api/projects - Crear nuevo (como @PostMapping)
 app.post("/api/projects", (req, res) => {
 	const projects = readProjects();
+
+	// Generate next sequential ID
+	const maxId =
+		projects.length > 0 ? Math.max(...projects.map((p) => p.id || 0)) : 0;
 	const newProject = {
 		...req.body,
-		id: Date.now(), // Simple ID generation
+		id: maxId + 1,
 	};
 	projects.push(newProject);
 
