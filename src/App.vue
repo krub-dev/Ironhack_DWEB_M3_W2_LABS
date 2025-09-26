@@ -1,6 +1,18 @@
 <script setup>
-// Ya no necesitamos importar ProjectList directamente
-// El router se encarga de mostrar los componentes según la URL
+import { ref } from "vue";
+
+// Estado para controlar el menú móvil
+const isMobileMenuOpen = ref(false);
+
+// Función para toggle del menú
+const toggleMobileMenu = () => {
+	isMobileMenuOpen.value = !isMobileMenuOpen.value;
+};
+
+// Función para cerrar menú al hacer clic en un enlace
+const closeMobileMenu = () => {
+	isMobileMenuOpen.value = false;
+};
 </script>
 
 <template>
@@ -8,29 +20,52 @@
 		<div class="main-container">
 			<!-- Barra de navegación -->
 			<nav class="navigation">
-				<router-link to="/" class="nav-link" active-class="active"
-					>Home</router-link
+				<!-- Botón hamburguesa (solo visible en móvil) -->
+				<button
+					class="mobile-menu-toggle"
+					@click="toggleMobileMenu"
+					:class="{ active: isMobileMenuOpen }"
 				>
-				<router-link
-					to="/projects"
-					class="nav-link"
-					active-class="active"
-					>Projects</router-link
-				>
-				<router-link
-					to="/contact"
-					class="nav-link"
-					active-class="active"
-					>Contact</router-link
-				>
-				<router-link
-					to="/api-projects"
-					class="nav-link"
-					active-class="active"
-					>API CRUD</router-link
-				>
-			</nav>
+					<span></span>
+					<span></span>
+					<span></span>
+				</button>
 
+				<!-- Enlaces de navegación -->
+				<div
+					class="nav-links"
+					:class="{ 'mobile-open': isMobileMenuOpen }"
+				>
+					<router-link
+						to="/"
+						class="nav-link"
+						active-class="active"
+						@click="closeMobileMenu"
+						>Home</router-link
+					>
+					<router-link
+						to="/projects"
+						class="nav-link"
+						active-class="active"
+						@click="closeMobileMenu"
+						>Projects</router-link
+					>
+					<router-link
+						to="/contact"
+						class="nav-link"
+						active-class="active"
+						@click="closeMobileMenu"
+						>Contact</router-link
+					>
+					<router-link
+						to="/api-projects"
+						class="nav-link"
+						active-class="active"
+						@click="closeMobileMenu"
+						>API CRUD</router-link
+					>
+				</div>
+			</nav>
 			<!-- Aquí se muestran los componentes según la ruta actual -->
 			<router-view />
 		</div>
@@ -139,12 +174,68 @@ h2 {
 /* Estilos para la barra de navegación */
 .navigation {
 	width: 100%;
+	position: relative;
 	display: flex;
 	justify-content: center;
-	gap: 2rem;
+	align-items: center;
 	padding: 1.5rem 1rem 1rem 1rem;
 	border-bottom: 2px solid #1e1e1e;
 	margin-bottom: 0;
+}
+
+/* Botón hamburguesa - oculto por defecto */
+.mobile-menu-toggle {
+	display: none;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 44px;
+	height: 44px;
+	background: none;
+	border: none;
+	cursor: pointer;
+	position: absolute;
+	right: 1rem;
+	top: 50%;
+	transform: translateY(-50%);
+	z-index: 1000;
+	padding: 8px;
+	border-radius: 8px;
+	transition: background 0.3s ease;
+}
+
+.mobile-menu-toggle:hover {
+	background: rgba(30, 30, 30, 0.1);
+}
+
+.mobile-menu-toggle span {
+	display: block;
+	width: 28px;
+	height: 4px;
+	background: #1e1e1e;
+	margin: 4px 0;
+	transition: all 0.3s ease;
+	border-radius: 2px;
+}
+
+/* Animación del botón hamburguesa cuando está activo */
+.mobile-menu-toggle.active span:nth-child(1) {
+	transform: rotate(45deg) translate(6px, 6px);
+}
+
+.mobile-menu-toggle.active span:nth-child(2) {
+	opacity: 0;
+}
+
+.mobile-menu-toggle.active span:nth-child(3) {
+	transform: rotate(-45deg) translate(8px, -8px);
+}
+
+/* Enlaces de navegación */
+.nav-links {
+	display: flex;
+	justify-content: center;
+	gap: 2rem;
 }
 
 .nav-link {
@@ -175,5 +266,73 @@ h2 {
 .nav-link.active:hover {
 	background: #1e1e1e;
 	color: #f5ca1c;
+}
+
+/* Media queries para responsive */
+@media (max-width: 768px) {
+	/* Mostrar botón hamburguesa en móvil */
+	.mobile-menu-toggle {
+		display: flex;
+	}
+
+	/* Enlaces de navegación en móvil */
+	.nav-links {
+		position: absolute;
+		top: 100%;
+		left: 0;
+		right: 0;
+		background: #f5ca1c;
+		flex-direction: column;
+		gap: 0;
+		padding: 1rem 0;
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+		border-radius: 0 0 12px 12px;
+		transform: translateY(-10px);
+		opacity: 0;
+		visibility: hidden;
+		transition: all 0.3s ease;
+		z-index: 999;
+	}
+
+	.nav-links.mobile-open {
+		transform: translateY(0);
+		opacity: 1;
+		visibility: visible;
+	}
+
+	.nav-link {
+		padding: 12px 24px;
+		text-align: center;
+		border-radius: 0;
+		color: #1e1e1e;
+		font-size: 1rem;
+	}
+
+	.nav-link:hover {
+		background: rgba(30, 30, 30, 0.1);
+		transform: none;
+	}
+
+	.nav-link.active {
+		background: #1e1e1e;
+		color: #f5ca1c;
+		box-shadow: none;
+	}
+
+	.nav-link.active:hover {
+		background: #1e1e1e;
+	}
+
+	/* Ajustar padding del navigation en móvil */
+	.navigation {
+		padding: 1rem;
+	}
+}
+
+@media (max-width: 480px) {
+	.nav-link {
+		font-size: 0.9rem;
+		padding: 10px 20px;
+	}
 }
 </style>

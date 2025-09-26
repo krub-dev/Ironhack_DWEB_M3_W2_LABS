@@ -2,6 +2,21 @@
 
 Professional full-stack web application developed during **Ironhack Web Development Bootcamp**. This project showcases a complete Vue.js frontend with Express.js backend, featuring advanced CRUD operations, featured projects system, and elegant dark UI design.
 
+## 🌐 **Live Showroom**
+
+**🚀 Deployed Application:** [https://krubshowroom-production.up.railway.app](https://krubshowroom-production.up.railway.app)
+
+**Platform:** Railway Cloud Deployment  
+**Status:** ✅ Production Ready
+
+The showroom includes:
+
+-   🏠 **Home** - Landing page with featured projects showcase
+-   📋 **Projects** - Complete projects list with featured toggle
+-   📞 **Contact** - Professional contact form with LinkedIn integration
+-   ⚙️ **API CRUD** - Admin interface for project management
+-   📱 **Mobile Responsive** - Hamburger menu and mobile-optimized design
+
 ## 📋 **Project Overview**
 
 ### **Labs Completed:**
@@ -16,7 +31,7 @@ Professional full-stack web application developed during **Ironhack Web Developm
 -   🌟 **Featured Projects System** - Toggle between featured and all projects
 -   🔧 **CRUD API Manager** - Complete admin interface for project management
 -   🎨 **Elegant Dark UI** - Consistent golden/dark theme across all components
--   📱 **Responsive Design** - Mobile-first approach with smooth animations
+-   📱 **Responsive Design** - Mobile-first approach with hamburger menu
 -   ⚡ **Real-time Updates** - Live project filtering and management
 -   🔗 **Professional Integration** - LinkedIn button and contact system
 
@@ -26,7 +41,7 @@ Professional full-stack web application developed during **Ironhack Web Developm
 -   **Backend:** Node.js, Express.js, CORS, File System Operations
 -   **Data:** JSON file storage with real-time CRUD operations
 -   **UI/UX:** Dark theme design, responsive layout, smooth animations
--   **Tools:** Vite, npm, Git, VS Code
+-   **Tools:** Vite, npm, Git, VS Code, Railway
 
 ---
 
@@ -34,20 +49,21 @@ Professional full-stack web application developed during **Ironhack Web Developm
 
 ```
 📁 Ironhack_DWEB_M3_W2_LABS/
-├── 🖥️ Frontend (Vue.js)           → http://localhost:5173
+├── 🖥️ Frontend (Vue.js)           → http://localhost:5173 | Production: Railway
 │   ├── src/
 │   │   ├── components/
-│   │   │   ├── Home.vue              # Landing page
-│   │   │   ├── ProjectList.vue       # Featured/All projects toggle
-│   │   │   ├── ApiProjects.vue       # CRUD Manager Interface
+│   │   │   ├── Home.vue              # Landing page with responsive design
+│   │   │   ├── ProjectList.vue       # Featured/All projects with mobile accordion
+│   │   │   ├── ApiProjects.vue       # CRUD Manager with production API URLs
 │   │   │   ├── Contact.vue           # Dark theme contact form
 │   │   │   ├── NotFound404.vue       # 404 error page
 │   │   │   └── LinkedInButton.vue    # Professional networking
-│   │   ├── data/projects.json        # Enhanced with featured property
+│   │   ├── App.vue                   # Main app with hamburger menu
+│   │   ├── data/projects.json        # Enhanced with featured & sequential IDs
 │   │   └── main.js
 │   └── package.json
-└── 🌐 Backend (Express API)        → http://localhost:3001
-    ├── server.js                    # Full CRUD REST API
+└── 🌐 Backend (Express API)        → http://localhost:3001 | Production: Railway
+    ├── server.js                    # Full CRUD REST API + SPA routing
     └── package.json
 ```
 
@@ -99,9 +115,65 @@ node server.js
 
 ---
 
+## 🚀 **Production Deployment**
+
+### **Railway Deployment Details:**
+
+**Live URL:** [https://krubshowroom-production.up.railway.app](https://krubshowroom-production.up.railway.app)
+
+**Deployment Configuration:**
+
+-   **Platform:** Railway Cloud Platform
+-   **Build Process:** Automatic build from Git repository
+-   **Frontend:** Vue.js build served as static files
+-   **Backend:** Express.js API with JSON file storage
+-   **Environment:** Production with NODE_ENV=production
+-   **CORS:** Configured for cross-origin requests
+
+**Build Scripts:**
+
+```json
+{
+	"build": "vite build && cd api-projects && npm install",
+	"start": "cd api-projects && node server.js"
+}
+```
+
+**Production Features:**
+
+-   ✅ Static file serving for Vue.js frontend
+-   ✅ Express API with production CORS configuration
+-   ✅ Environment-based PORT configuration (Railway: 8080)
+-   ✅ SPA routing fallback for all frontend routes
+-   ✅ Sequential ID system with production data persistence
+-   ✅ Automated deployment from Git commits
+-   ✅ Full-stack hosting in single Railway service
+
+### **Deployment Commands:**
+
+```bash
+# Build and deploy to Railway
+npm run build     # Builds frontend and installs backend deps
+railway up        # Deploy to Railway cloud platform
+
+# Or deploy directly
+railway up        # Automatically detects changes and deploys
+```
+
+**Latest Deployment Status:**
+
+-   **Date:** September 26, 2025
+-   **API URLs:** Updated from localhost to production Railway URLs
+-   **Status:** ✅ Fully deployed and operational
+
+---
+
 ## 🌐 **API Endpoints**
 
-### **Base URL:** `http://localhost:3001`
+### **Base URLs:**
+
+-   **Development:** `http://localhost:3001`
+-   **Production:** `https://krubshowroom-production.up.railway.app`
 
 | Method   | Endpoint            | Description        | Body         | Notes                      |
 | -------- | ------------------- | ------------------ | ------------ | -------------------------- |
@@ -129,11 +201,13 @@ node server.js
 
 ```javascript
 // Get all projects
-const response = await fetch("http://localhost:3001/api/projects");
+const response = await fetch(
+	"https://krubshowroom-production.up.railway.app/api/projects"
+);
 const projects = await response.json();
 
 // Create new project
-await fetch("http://localhost:3001/api/projects", {
+await fetch("https://krubshowroom-production.up.railway.app/api/projects", {
 	method: "POST",
 	headers: { "Content-Type": "application/json" },
 	body: JSON.stringify({
@@ -141,6 +215,7 @@ await fetch("http://localhost:3001/api/projects", {
 		description: "Project description",
 		technologies: ["Vue.js", "Express"],
 		rating: 5,
+		featured: false,
 	}),
 });
 ```
@@ -151,25 +226,28 @@ await fetch("http://localhost:3001/api/projects", {
 
 ### **Frontend Features:**
 
--   ✅ **SPA Routing** - Vue Router navigation with smooth transitions
+-   ✅ **SPA Routing** - Vue Router navigation with smooth transitions and SPA fallback
 -   ✅ **Featured Projects System** - Toggle between featured/all projects view
--   ✅ **CRUD API Manager** - Complete admin interface for project management
--   ✅ **Responsive Design** - Mobile-first approach with elegant animations
--   ✅ **Dark Theme UI** - Consistent golden/dark color scheme
+-   ✅ **CRUD API Manager** - Complete admin interface with production API URLs
+-   ✅ **Mobile-First Responsive** - Hamburger menu (44x44px touch targets), mobile accordion
+-   ✅ **Dark Theme UI** - Consistent golden/dark color scheme (#f5ca1c)
 -   ✅ **Component Architecture** - Reusable Vue components with Composition API
 -   ✅ **Professional Styling** - Hover effects, smooth transitions, modern design
 -   ✅ **Form Handling** - Advanced forms with validation and custom styling
 -   ✅ **LinkedIn Integration** - Professional networking button
+-   ✅ **Cross-Device UX** - Optimized for desktop, tablet, and mobile experiences
 
 ### **Backend Features:**
 
 -   ✅ **RESTful API** - Standard HTTP methods with proper status codes
--   ✅ **CORS Enabled** - Cross-origin requests fully supported
--   ✅ **File-based Storage** - JSON file persistence with backup
+-   ✅ **Production CORS** - Cross-origin requests configured for Railway deployment
+-   ✅ **File-based Storage** - JSON file persistence with sequential ID management
+-   ✅ **SPA Routing Support** - Express middleware for Vue Router fallback
 -   ✅ **Error Handling** - Comprehensive error responses and logging
 -   ✅ **Featured Projects** - Backend support for featured/regular categorization
--   ✅ **Express Middleware** - JSON parsing, logging, request validation
--   ✅ **Unique ID Generation** - Sequential auto-incremental IDs for new projects
+-   ✅ **Express Middleware** - Static file serving, JSON parsing, request validation
+-   ✅ **Sequential ID System** - Auto-incremental IDs (1-6...) replacing title-based identification
+-   ✅ **Railway Integration** - Production-ready deployment with environment configuration
 
 ### **Advanced Features:**
 
@@ -178,6 +256,7 @@ await fetch("http://localhost:3001/api/projects", {
 -   📊 **Color-coded Notifications** - Visual feedback for CRUD operations
 -   🎨 **Homogeneous Design** - Consistent styling across all components
 -   ⚡ **Real-time Updates** - Instant UI updates after API operations
+-   📱 **Mobile Optimization** - Touch-friendly interface with proper spacing
 
 ---
 
@@ -185,19 +264,20 @@ await fetch("http://localhost:3001/api/projects", {
 
 ### **Frontend Components:**
 
--   `Home.vue` - Landing page with portfolio showcase and elegant design
--   `ProjectList.vue` - Featured/All projects toggle with accordion interface
--   `ApiProjects.vue` - Complete CRUD manager with dropdown selection and form
+-   `App.vue` - Main application with responsive hamburger menu navigation
+-   `Home.vue` - Landing page with professional showroom and elegant design
+-   `ProjectList.vue` - Featured/All projects toggle with mobile accordion interface
+-   `ApiProjects.vue` - Complete CRUD manager with production API connectivity
 -   `Contact.vue` - Dark theme contact form with professional styling
 -   `NotFound404.vue` - 404 error page with code-themed design
 -   `LinkedInButton.vue` - Reusable LinkedIn integration component
 
 ### **Backend Structure:**
 
--   `server.js` - Express server with full CRUD endpoints
--   Enhanced JSON file operations with featured projects support
+-   `server.js` - Express server with full CRUD endpoints and SPA routing support
+-   Enhanced JSON file operations with sequential ID management
+-   Production CORS configuration and static file serving
 -   Comprehensive error handling and logging
--   CORS configuration for seamless frontend communication
 -   Automatic ID generation and data validation
 
 ---
@@ -220,16 +300,22 @@ node server.js       # Start API server
 # Use Ctrl+C to stop server
 ```
 
+### **Deployment:**
+
+```bash
+railway up          # Deploy to Railway
+```
+
 ---
 
 ## 🎯 **Learning Objectives Achieved**
 
-### **M3_W2_D1_LAB1 - Personal Portfolio Component:**
+### **M3_W2_D1_LAB1 - Personal Showroom Component:**
 
 -   ✅ **Component Creation** - Personal info with h1 (name), h2 (job title)
 -   ✅ **Project Highlights** - JSON-based featured projects list
 -   ✅ **Professional Design** - Header/banner image integration
--   ✅ **External Links** - Portfolio link with branding
+-   ✅ **External Links** - Professional portfolio with branding (krub.dev)
 
 ### **M3_W2_D2_LAB1 - SPA Routing:**
 
@@ -252,14 +338,24 @@ node server.js       # Start API server
 -   ✅ **Real-time Updates** - Immediate UI feedback for all operations
 -   ✅ **Featured Projects** - Enhanced system beyond basic requirements
 
+### **Bonus Achievements:**
+
+-   🏆 **Mobile Responsive Design** - Hamburger menu and touch-optimized interface
+-   🏆 **Production Deployment** - Full Railway cloud deployment
+-   🏆 **Sequential ID System** - Professional ID management replacing title-based
+-   🏆 **SPA Routing Fallback** - Proper handling of direct URL access
+
 ---
 
 ## 👨‍💻 **Developer**
 
--   GitHub: [@krub-dev](https://github.com/krub-dev)
--   LinkedIn: [Kiko Rubio Illán](https://linkedin.com/in/krub)
--   Portfolio: [krub.dev](https://krub.dev)
+-   **GitHub:** [@krub-dev](https://github.com/krub-dev)
+-   **LinkedIn:** [Kiko Rubio Illán](https://linkedin.com/in/krub)
+-   **Portfolio:** [krub.dev](https://krub.dev)
+-   **Live Demo:** [krubSHOWROOM](https://krubshowroom-production.up.railway.app)
 
 ---
 
-This project was developed as part of **Ironhack Web Development Bootcamp** coursework.
+**Ironhack Web Development Bootcamp** - Module 3, Week 2 Labs  
+**Completion Date:** September 26, 2025  
+**Status:** ✅ All labs completed with production deployment

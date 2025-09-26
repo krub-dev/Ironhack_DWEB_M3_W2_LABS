@@ -333,26 +333,121 @@ const filteredProjects = computed(() => {
 
 /* Toggle Button Responsive Styles */
 @media (max-width: 768px) {
-	.projects-header {
-		flex-direction: column;
-		align-items: flex-start;
-		gap: 1rem;
+	.projects-list {
+		margin: 0 1rem;
+		max-width: none;
 	}
 
-	.toggle-button {
-		width: 100%;
-		justify-content: center;
+	.projects-title {
+		font-size: 2rem;
+	}
+
+	.projects-controls {
+		padding-right: 1rem;
+		padding-left: 1rem;
+		margin-bottom: 1rem;
+	}
+
+	.toggle-btn {
+		padding: 0.7rem 1.2rem;
+		font-size: 0.8em;
+	}
+
+	.accordion-wrapper {
+		margin: 0 0.5rem 1rem 0.5rem;
+		border-radius: 8px;
+	}
+
+	.accordion-header {
+		padding: 1rem 1.5rem;
+		font-size: 1rem;
+	}
+
+	.accordion-body {
+		padding: 1rem 1.5rem;
+	}
+
+	.project-info p {
+		font-size: 0.9rem;
+		line-height: 1.5;
+	}
+
+	.tech-chip {
+		padding: 0.3rem 0.6rem;
+		font-size: 0.7rem;
+	}
+
+	.project-img {
+		max-width: 100%;
+		height: auto;
+		border-radius: 6px;
 	}
 }
 
 @media (max-width: 480px) {
-	.toggle-button {
+	.projects-list {
+		margin: 0 0.5rem;
+	}
+
+	.projects-title {
+		font-size: 1.8rem;
+		text-align: center;
+	}
+
+	.projects-main-title {
+		margin-top: 2em;
+		margin-bottom: 1.5em;
+	}
+
+	.accordion-wrapper {
+		margin: 0 0 1rem 0;
+		border-radius: 6px;
+	}
+
+	.accordion-header {
 		padding: 0.8rem 1rem;
 		font-size: 0.9rem;
 	}
 
-	.projects-header h2 {
-		font-size: 1.5rem;
+	.project-title {
+		font-size: 0.9rem;
+	}
+
+	.accordion-body {
+		padding: 0.8rem 1rem;
+	}
+
+	.project-info p {
+		font-size: 0.85rem;
+		margin-bottom: 1rem;
+	}
+
+	.tech-list {
+		gap: 0.4rem;
+		margin-bottom: 1rem;
+	}
+
+	.tech-chip {
+		padding: 0.25rem 0.5rem;
+		font-size: 0.65rem;
+	}
+
+	.project-links-row {
+		flex-direction: column;
+		gap: 0.8rem;
+		align-items: flex-start;
+	}
+
+	.repo-btn {
+		padding: 0.5rem 1rem;
+		font-size: 0.8rem;
+		align-self: stretch;
+		text-align: center;
+	}
+
+	.rating {
+		font-size: 0.9rem;
+		margin-top: 0;
 	}
 }
 </style>

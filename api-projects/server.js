@@ -4,11 +4,24 @@ const fs = require("fs"); // File System - leer/escribir archivos (nativo Node.j
 const path = require("path"); // Manejo de rutas multiplataforma (nativo Node.js)
 
 const app = express();
-const PORT = 3001; // Puerto libre (Vue usa 5173, React 3000, Spring Boot 8080)
+const PORT = process.env.PORT || 3001; // Railway usa variable de entorno PORT
+
+// CORS configuration for development and production
+const corsOptions = {
+	origin:
+		process.env.NODE_ENV === "production"
+			? process.env.FRONTEND_URL || "*" // Railway will set this
+			: "http://localhost:5173", // Local development
+};
 
 // Middlewares (como @Configuration en Spring Boot)
-app.use(cors()); // Permite que Vue (puerto 5173) hable con Express (puerto 3001)
+app.use(cors(corsOptions)); // Configuración de CORS para desarrollo y producción
 app.use(express.json()); // Parsea JSON requests (como @RequestBody)
+
+// Serve static files from Vue build in production
+if (process.env.NODE_ENV === "production") {
+	app.use(express.static(path.join(__dirname, "../dist")));
+}
 
 // Path al archivo JSON (como H2 database)
 // __dirname = carpeta actual (/api-projects/)
@@ -103,6 +116,24 @@ app.delete("/api/projects/:id", (req, res) => {
 		res.status(500).json({ error: "Failed to delete project" });
 	}
 });
+
+// Serve Vue app for any routes not handled by API (SPA fallback)
+if (process.env.NODE_ENV === "production") {
+	// Handle specific frontend routes that we know exist
+	const frontendRoutes = [
+		"/",
+		"/home",
+		"/projects",
+		"/contact",
+		"/api-projects",
+	];
+
+	frontendRoutes.forEach((route) => {
+		app.get(route, (req, res) => {
+			res.sendFile(path.join(__dirname, "../dist/index.html"));
+		});
+	});
+}
 
 // Start server (como main method)
 app.listen(PORT, () => {

@@ -12,7 +12,7 @@
 						<span class="code-variable">apiUrl </span>
 						<span class="code-operator">= </span>
 						<span class="code-string"
-							>"http://localhost:3001/api/projects"</span
+							>"https://krubshowroom-production.up.railway.app/api/projects"</span
 						>
 						<span class="code-bracket">;</span>
 					</div>
@@ -249,7 +249,7 @@ export default {
 			loading: false,
 			message: "",
 			messageType: "success", // success | error
-			apiUrl: "http://localhost:3001/api/projects",
+			apiUrl: "https://krubshowroom-production.up.railway.app/api/projects",
 			// New variables for dropdown interface
 			selectedProjectId: "CREATE_NEW", // Default to Create New Project
 			selectedProject: null,
