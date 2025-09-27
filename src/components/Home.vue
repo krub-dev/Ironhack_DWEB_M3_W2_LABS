@@ -78,12 +78,13 @@ import LinkedInButton from "./LinkedInButton.vue";
 	max-width: 100%;
 	height: auto;
 	width: auto;
-	max-height: 15em;
+	max-height: auto;
+	margin-bottom: 2rem;
 }
 
 .intro-section {
 	text-align: center;
-	padding: 0 2rem;
+	padding: 4rem;
 	width: 100%;
 	box-sizing: border-box;
 }

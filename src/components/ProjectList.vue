@@ -145,23 +145,23 @@ const filteredProjects = computed(() => {
 }
 
 .projects-list {
-	width: 100%;
-	max-width: 550px;
+	width: 90%;
 	margin: 0 auto;
 }
 
 .project-accordion {
 	margin-bottom: 1.5em;
 }
+
 .accordion-wrapper {
-	width: 100%;
-	border-radius: 12px;
-	background: rgba(30, 30, 30, 0.9);
-	border: 1px solid #333;
-	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-	overflow: hidden;
-	margin: 0 auto;
-	transition: all 0.3s ease;
+	width: 90%;
+    margin: 0 auto;
+    border-radius: 12px;
+    background: rgba(30, 30, 30, 0.9);
+    border: 1px solid #333;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: all 0.3s ease;
 }
 
 .accordion-wrapper:hover {
@@ -222,10 +222,11 @@ const filteredProjects = computed(() => {
 	align-items: center;
 	margin: 1.2em 0 0.5em 0;
 }
+
 .project-img {
 	width: 90%;
-	max-width: 340px;
-	height: 140px;
+	max-width: 450px;
+	max-height: 250px;
 	object-fit: cover;
 	border-radius: 12px;
 	background: #eee;
@@ -241,6 +242,7 @@ const filteredProjects = computed(() => {
 	min-height: 80px;
 	justify-content: space-between;
 }
+
 .project-links-row {
 	display: flex;
 	flex: 1;
@@ -333,11 +335,6 @@ const filteredProjects = computed(() => {
 
 /* Toggle Button Responsive Styles */
 @media (max-width: 768px) {
-	.projects-list {
-		margin: 0 1rem;
-		max-width: none;
-	}
-
 	.projects-title {
 		font-size: 2rem;
 	}
@@ -351,11 +348,6 @@ const filteredProjects = computed(() => {
 	.toggle-btn {
 		padding: 0.7rem 1.2rem;
 		font-size: 0.8em;
-	}
-
-	.accordion-wrapper {
-		margin: 0 0.5rem 1rem 0.5rem;
-		border-radius: 8px;
 	}
 
 	.accordion-header {
@@ -385,10 +377,6 @@ const filteredProjects = computed(() => {
 }
 
 @media (max-width: 480px) {
-	.projects-list {
-		margin: 0 0.5rem;
-	}
-
 	.projects-title {
 		font-size: 1.8rem;
 		text-align: center;
@@ -397,11 +385,6 @@ const filteredProjects = computed(() => {
 	.projects-main-title {
 		margin-top: 2em;
 		margin-bottom: 1.5em;
-	}
-
-	.accordion-wrapper {
-		margin: 0 0 1rem 0;
-		border-radius: 6px;
 	}
 
 	.accordion-header {

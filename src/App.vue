@@ -114,7 +114,7 @@ const closeMobileMenu = () => {
 
 .main-container {
 	width: 100%;
-	max-width: 600px;
+	max-width: 900px; /* antes 600px */
 	min-height: 100vh;
 	background: #f5ca1c;
 	display: flex;

@@ -12,6 +12,7 @@
 						<span class="code-variable">apiUrl </span>
 						<span class="code-operator">= </span>
 						<span class="code-string">"{{ apiUrl }}"</span>
+						<!-- Cambia esto -->
 						<span class="code-bracket">;</span>
 					</div>
 				</div>
@@ -75,7 +76,7 @@
 						@click="editProject(selectedProject)"
 						class="action-btn btn-primary"
 					>
-						✏️ Edit Project
+						Edit Project
 					</button>
 					<button
 						@click="
@@ -85,7 +86,7 @@
 						"
 						class="action-btn btn-danger"
 					>
-						🗑️ Delete Project
+						Delete Project
 					</button>
 				</div>
 			</div>
@@ -280,58 +281,53 @@ export default {
 			loading: false,
 			message: "",
 			messageType: "success", // success | error
-			apiUrl: this.getApiUrl(),
+			// Elimina apiUrl de data
 			// New variables for dropdown interface
 			selectedProjectId: "CREATE_NEW", // Default to Create New Project
 			selectedProject: null,
-			showForm: true, // Show form by default
+			showForm: false, // Cambia a false para que el formulario no se muestre antes de autenticarse
 			// Teacher authentication
 			teacherAuthenticated: false,
 			teacherPassword: "",
 		};
 	},
-
+	computed: {
+		apiUrl() {
+			// Forzar siempre la URL de producción
+			return "https://krubshowroom-production.up.railway.app/api/projects";
+		},
+	},
 	async mounted() {
 		// Projects will only load after teacher authentication
 		// No automatic loading to protect data access
 	},
 
 	methods: {
-		// Get API URL based on environment
-		getApiUrl() {
-			// Check if we're in development or production
-			const isDevelopment =
-				window.location.hostname === "localhost" ||
-				window.location.hostname === "127.0.0.1";
-			const apiUrl = isDevelopment
-				? "http://localhost:3001/api/projects"
-				: "https://krubshowroom-production.up.railway.app/api/projects";
-			return apiUrl;
-		},
-
-		// Teacher authentication
+		// Jarko authentication
 		async authenticateTeacher() {
 			if (!this.teacherPassword) {
-				this.showMessage("Please enter teacher access code", "error");
+				this.showMessage("Please enter custom Jarko access code", "error");
 				return;
 			}
-
-			// Simple password validation
 			const CORRECT_PASSWORD = "ironhack2025";
 			if (this.teacherPassword === CORRECT_PASSWORD) {
 				this.teacherAuthenticated = true;
 				this.showMessage(
-					"Teacher access granted! You can now use all CRUD operations.",
+					"Access granted! You can now use all CRUD operations.",
 					"success"
 				);
-				// Load projects after successful authentication
 				await this.loadProjects(false);
+				this.showForm = true; // Muestra el formulario tras autenticación
+				this.selectedProjectId = "CREATE_NEW";
+				this.selectedProject = null;
+				this.editingId = null;
+				this.resetForm();
 			} else {
 				this.showMessage(
 					"Invalid teacher access code. Please try again.",
 					"error"
 				);
-				this.teacherPassword = ""; // Clear wrong password
+				this.teacherPassword = "";
 			}
 		},
 
@@ -339,6 +335,7 @@ export default {
 		async loadProjects(showMessage = true) {
 			try {
 				this.loading = true;
+				console.log("API URL used:", this.apiUrl);
 				const response = await fetch(this.apiUrl);
 
 				if (!response.ok) {
@@ -780,7 +777,7 @@ export default {
 }
 
 .project-image {
-	height: 200px;
+	max-height: 400px;
 	overflow: hidden;
 }
 
@@ -1206,6 +1203,9 @@ export default {
 	padding: 1.5rem;
 	margin-bottom: 2rem;
 	text-align: center;
+	max-width: 400px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .teacher-auth-panel h3 {
@@ -1224,6 +1224,29 @@ export default {
 	justify-content: center;
 	align-items: center;
 	margin-bottom: 1rem;
+}
+
+@media (max-width: 600px) {
+	.teacher-auth-panel {
+		padding: 1rem;
+		max-width: 98vw;
+	}
+	.auth-input-group {
+		flex-direction: column;
+		gap: 0.5rem;
+		align-items: stretch;
+	}
+	.teacher-password-input {
+		min-width: 0;
+		width: 100%;
+		font-size: 1rem;
+		box-sizing: border-box;
+	}
+	.auth-btn {
+		width: 100%;
+		font-size: 1rem;
+		box-sizing: border-box;
+	}
 }
 
 .teacher-password-input {
