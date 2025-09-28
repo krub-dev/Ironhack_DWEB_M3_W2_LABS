@@ -41,9 +41,9 @@
 						>My Website</a
 					>
 				</div>
-				<div class="linkedin-row">
-					<LinkedInButton />
-				</div>
+			</div>
+			<div class="linkedin">
+				<LinkedInButton />
 			</div>
 		</div>
 	</div>
@@ -146,10 +146,14 @@ h2 {
 	flex-wrap: wrap;
 }
 
-.linkedin-row {
+.linkedin {
+	margin-top: 1.5rem;
+	position: relative;
 	display: flex;
 	justify-content: center;
+	left: 16px;
 }
+
 
 .cta-btn {
 	padding: 12px 24px;
@@ -264,6 +268,11 @@ h2 {
 
 	h2 {
 		font-size: 1.5em;
+	}
+}
+@media (max-width: 630px) {
+	.linkedin {
+		left: 0;
 	}
 }
 </style>

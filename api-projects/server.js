@@ -158,6 +158,14 @@ if (process.env.NODE_ENV === "production") {
 }
 
 // Start server (como main method)
+
+// Catch-all para rutas no gestionadas por la API ni por las rutas frontend conocidas
+if (process.env.NODE_ENV === "production") {
+	app.get(/.*/, (req, res) => {
+		res.sendFile(path.join(__dirname, "../dist/index.html"));
+	});
+}
+
 app.listen(PORT, () => {
 	console.log(`🚀 API Server running on http://localhost:${PORT}`);
 	console.log(
