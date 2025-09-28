@@ -123,6 +123,9 @@ node server.js
 
 **Live URL:** [https://krubshowroom-production.up.railway.app](https://krubshowroom-production.up.railway.app)
 
+
+**Autodeploy:** Every push to the `main` branch triggers an automatic deployment on Railway.
+
 **Deployment Configuration:**
 
 -   **Platform:** Railway Cloud Platform
