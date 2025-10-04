@@ -2,9 +2,23 @@
 
 Professional full-stack web application developed during **Ironhack Web Development Bootcamp**. This project showcases a complete Vue.js frontend with Express.js backend, featuring advanced CRUD operations, featured projects system, and elegant dark UI design.
 
+> **⚠️ Project Iterated / Migrated**
+>
+> PLEASE READ.
+> 
+> This project has been continued in a new repository:  
+> [`krub-dev/SHOWROOM-FULLSTACK-M3`](https://github.com/krub-dev/SHOWROOM-FULLSTACK-M3)
+>
+> The deployed application is now available at:  
+> [https://showroom-fullstack-m3-production.up.railway.app](https://showroom-fullstack-m3-production.up.railway.app/)
+>
+> **If you are looking for the active and maintained version, please visit the new repository and URL above.**
+>
+> ---
+> 
 ## 🌐 **Live Showroom**
 
-**🚀 Deployed Application:** [https://krubshowroom-production.up.railway.app](https://krubshowroom-production.up.railway.app)
+**🚀 Deployed Application:** [https://krubshowroom-production.up.railway.app](https://krubshowroom-production.up.railway.app) (OBSOLETE)
 
 **Platform:** Railway Cloud Deployment  
 **Status:** ✅ Production Ready
@@ -121,7 +135,7 @@ node server.js
 
 ### **Railway Deployment Details:**
 
-**Live URL:** [https://krubshowroom-production.up.railway.app](https://krubshowroom-production.up.railway.app)
+**Live URL:** [https://krubshowroom-production.up.railway.app](https://krubshowroom-production.up.railway.app) (OBSOLETE)
 
 
 **Autodeploy:** Every push to the `main` branch triggers an automatic deployment on Railway.
@@ -359,7 +373,7 @@ railway up          # Deploy to Railway
 -   **GitHub:** [@krub-dev](https://github.com/krub-dev)
 -   **LinkedIn:** [Kiko Rubio Illán](https://linkedin.com/in/krub)
 -   **Portfolio:** [krub.dev](https://krub.dev)
--   **Live Demo:** [krubSHOWROOM](https://krubshowroom-production.up.railway.app)
+-   **Live Demo:** [krubSHOWROOM](https://krubshowroom-production.up.railway.app) (OBSOLETE)
 
 ---
 
